@@ -1,13 +1,17 @@
 package fpolichetti;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+
 
 public class WortEintragTest {
 
     @Test
     public void testKonstruktorMitGueltigenWerten() {
-        WortEintrag eintrag = new WortEintrag("Hund", "http://example.com/hund.jpg");
+        WortEintrag eintrag = new WortEintrag("Hund", "https://example.com/hund.jpg");
         assertEquals("Hund", eintrag.getWort());
         assertEquals("https://example.com/hund.jpg", eintrag.getBildUrl());
     }

@@ -1,3 +1,19 @@
 @startuml
 title: Worttrainer Reloaded
+
+class WortEintrag {
+  -wort : String
+  -bildUrl : String
+  --
+  +WortEintrag(String wort, String bildUrl)
+  +void setWort(String wort)
+  +boolean checkWort(String wort)
+  +void setBildUrl(String bildUrl)
+  +boolean checkBildUrl(String bildUrl)
+  +String getWort()
+  +String getBildUrl()
+  +String toString()
+  +boolean equals(Object obj)
+}
+
 @enduml

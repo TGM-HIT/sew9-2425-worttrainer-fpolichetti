@@ -16,4 +16,19 @@ class WortEintrag {
   +boolean equals(Object obj)
 }
 
+class WortTrainer {
+  -eintraege : List<WortEintrag>
+  -auswahl : WortEintrag
+  --
+  +WortTrainer()
+  +List<WortEintrag> getEintraege()
+  +void setEintraege(List<WortEintrag> eintraege)
+  +WortEintrag waehleZufaelligenEintrag()
+  +WortEintrag waehleEintrag(int index)
+  +void addEintrag(WortEintrag eintrag)
+  +void removeEintrag(WortEintrag eintrag)
+  +WortEintrag getAuswahl()
+  +void setAuswahl(WortEintrag eintrag)
+}
+
 @enduml

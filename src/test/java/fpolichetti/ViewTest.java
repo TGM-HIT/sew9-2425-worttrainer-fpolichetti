@@ -34,4 +34,20 @@ public class ViewTest {
 
         assertEquals(nachricht, view.getLetzteNachricht());
     }
+
+    /**
+     * Testet die Methode holeBenutzereingabe.
+     */
+    @Test
+    public void testHoleBenutzereingabe() {
+        View view = new View();
+        String nachricht = "Bitte geben Sie etwas ein:";
+        String erwarteteEingabe = "Testeingabe";
+        view.setTestEingabe(erwarteteEingabe);
+
+        String eingabe = view.holeBenutzereingabe(nachricht, null);
+
+        assertEquals(erwarteteEingabe, eingabe);
+        assertEquals(nachricht, view.getLetzteNachricht());
+    }
 }

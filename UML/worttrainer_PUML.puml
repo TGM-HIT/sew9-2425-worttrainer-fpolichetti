@@ -46,6 +46,8 @@ class Statistik {
 class View {
   --
   +void zeigeNachricht(String nachricht)
+  +void zeigeBild(String nachricht, ImageIcon icon)
 }
+
 
 @enduml

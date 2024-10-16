@@ -5,14 +5,13 @@ import javax.swing.JOptionPane;
 
 /**
  * Die Klasse View verwaltet die Benutzeroberfläche mit JOptionPane.
- * Sie zeigt Nachrichten und Bilder an.
+ * Sie zeigt Nachrichten und Bilder an und holt Benutzereingaben.
  */
 public class View {
-
-    /**
-     * Die letzte angezeigte Nachricht.
-     */
     private String letzteNachricht;
+    private String letzteEingabe;
+    private boolean testModus = false;
+    private String testEingabe;
 
     /**
      * Zeigt eine Nachricht an.
@@ -36,11 +35,48 @@ public class View {
     }
 
     /**
+     * Holt eine Benutzereingabe.
+     *
+     * @param nachricht Die Eingabeaufforderung.
+     * @param icon      Das anzuzeigende Bild.
+     * @return Die Benutzereingabe.
+     */
+    public String holeBenutzereingabe(String nachricht, ImageIcon icon) {
+        this.letzteNachricht = nachricht;
+        if (testModus) {
+            this.letzteEingabe = testEingabe;
+        } else {
+            this.letzteEingabe = (String) JOptionPane.showInputDialog(null, nachricht, "Eingabe",
+                    JOptionPane.PLAIN_MESSAGE, icon, null, "");
+        }
+        return letzteEingabe;
+    }
+
+    /**
+     * Setzt die vordefinierte Eingabe für den Testmodus.
+     *
+     * @param eingabe Die vordefinierte Eingabe.
+     */
+    public void setTestEingabe(String eingabe) {
+        this.testEingabe = eingabe;
+        this.testModus = true;
+    }
+
+    /**
      * Gibt die zuletzt angezeigte Nachricht zurück.
      *
      * @return Die zuletzt angezeigte Nachricht.
      */
     public String getLetzteNachricht() {
         return letzteNachricht;
+    }
+
+    /**
+     * Gibt die letzte Benutzereingabe zurück.
+     *
+     * @return Die letzte Benutzereingabe.
+     */
+    public String getLetzteEingabe() {
+        return letzteEingabe;
     }
 }

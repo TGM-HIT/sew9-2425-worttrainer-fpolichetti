@@ -47,6 +47,7 @@ class View {
   --
   +void zeigeNachricht(String nachricht)
   +void zeigeBild(String nachricht, ImageIcon icon)
+  +String holeBenutzereingabe(String nachricht, ImageIcon icon)
 }
 
 

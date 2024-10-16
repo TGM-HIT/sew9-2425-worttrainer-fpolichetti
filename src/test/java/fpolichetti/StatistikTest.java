@@ -1,19 +1,19 @@
 package fpolichetti;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StatistikTest {
 
     @Test
-    public void testInitialeStatistik() {
+    void testInitialeStatistik() {
         Statistik statistik = new Statistik();
         assertEquals(0, statistik.getRichtigeVersuche());
         assertEquals(0, statistik.getFalscheVersuche());
     }
 
     @Test
-    public void testAktualisiereRichtig() {
+    void testAktualisiereRichtig() {
         Statistik statistik = new Statistik();
         statistik.aktualisiere(true);
         assertEquals(1, statistik.getRichtigeVersuche());
@@ -21,7 +21,7 @@ public class StatistikTest {
     }
 
     @Test
-    public void testAktualisiereFalsch() {
+    void testAktualisiereFalsch() {
         Statistik statistik = new Statistik();
         statistik.aktualisiere(false);
         assertEquals(0, statistik.getRichtigeVersuche());
@@ -29,7 +29,7 @@ public class StatistikTest {
     }
 
     @Test
-    public void testGetStatistik() {
+    void testGetStatistik() {
         Statistik statistik = new Statistik();
         statistik.aktualisiere(true);
         statistik.aktualisiere(false);

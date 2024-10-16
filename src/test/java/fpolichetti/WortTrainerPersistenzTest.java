@@ -1,13 +1,13 @@
 package fpolichetti;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 
 public class WortTrainerPersistenzTest {
 
     @Test
-    public void testSpeichereUndLadeDaten() {
+    void testSpeichereUndLadeDaten() {
         WortTrainer trainer = new WortTrainer();
         trainer.setPfad("test_worttrainer.json");
 

@@ -1,7 +1,7 @@
 package fpolichetti;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import javax.swing.ImageIcon;
 
 /**
@@ -13,7 +13,7 @@ public class ViewTest {
      * Testet die Methode zeigeNachricht.
      */
     @Test
-    public void testZeigeNachricht() {
+    void testZeigeNachricht() {
         View view = new View();
         String nachricht = "Hallo, Welt!";
         view.zeigeNachricht(nachricht);
@@ -25,7 +25,7 @@ public class ViewTest {
      * Testet die Methode zeigeBild.
      */
     @Test
-    public void testZeigeBild() {
+    void testZeigeBild() {
         View view = new View();
         String nachricht = "Bildanzeige";
         ImageIcon icon = new ImageIcon();
@@ -39,7 +39,7 @@ public class ViewTest {
      * Testet die Methode holeBenutzereingabe.
      */
     @Test
-    public void testHoleBenutzereingabe() {
+    void testHoleBenutzereingabe() {
         View view = new View();
         String nachricht = "Bitte geben Sie etwas ein:";
         String erwarteteEingabe = "Testeingabe";

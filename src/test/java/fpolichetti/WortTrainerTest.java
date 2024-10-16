@@ -1,13 +1,13 @@
 package fpolichetti;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 
 public class WortTrainerTest {
 
     @Test
-    public void testKonstruktorMitGueltigenEintraegen() {
+    void testKonstruktorMitGueltigenEintraegen() {
         WortEintrag eintrag1 = new WortEintrag("Hund", "http://example.com/hund.jpg");
         WortEintrag eintrag2 = new WortEintrag("Katze", "http://example.com/katze.jpg");
         WortTrainer trainer = new WortTrainer();
@@ -17,18 +17,16 @@ public class WortTrainerTest {
     }
 
     @Test
-    public void testSetEintraegeMitNull() {
+    void testSetEintraegeMitNull() {
         WortTrainer trainer = new WortTrainer();
-        try {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             trainer.setEintraege(null);
-            fail("Erwartete eine IllegalArgumentException.");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Die Liste der Worteinträge darf nicht null sein.", e.getMessage());
-        }
+        });
+        assertEquals("Die Liste der Worteinträge darf nicht null sein.", exception.getMessage());
     }
 
     @Test
-    public void testAddEintrag() {
+    void testAddEintrag() {
         WortTrainer trainer = new WortTrainer();
         WortEintrag eintrag = new WortEintrag("Vogel", "http://example.com/vogel.jpg");
         trainer.addEintrag(eintrag);
@@ -37,7 +35,7 @@ public class WortTrainerTest {
     }
 
     @Test
-    public void testRemoveEintrag() {
+    void testRemoveEintrag() {
         WortTrainer trainer = new WortTrainer();
         WortEintrag eintrag = new WortEintrag("Fisch", "http://example.com/fisch.jpg");
         trainer.addEintrag(eintrag);
@@ -47,7 +45,7 @@ public class WortTrainerTest {
     }
 
     @Test
-    public void testGetAuswahl() {
+    void testGetAuswahl() {
         WortTrainer trainer = new WortTrainer();
         WortEintrag eintrag = new WortEintrag("Hund", "http://example.com/hund.jpg");
         trainer.setAuswahl(eintrag);

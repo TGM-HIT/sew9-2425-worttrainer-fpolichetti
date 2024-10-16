@@ -1,28 +1,31 @@
 package fpolichetti;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WortEintragTest {
 
     @Test
-    public void testKonstruktorMitGueltigenWerten() {
+    void testKonstruktorMitGueltigenWerten() {
         WortEintrag eintrag = new WortEintrag("Hund", "https://example.com/hund.jpg");
         assertEquals("Hund", eintrag.getWort());
         assertEquals("https://example.com/hund.jpg", eintrag.getBildUrl());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testKonstruktorMitUngueltigemWort() {
-        new WortEintrag(null, "https://example.com/hund.jpg");
+    @Test
+    void testKonstruktorMitUngueltigemWort() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new WortEintrag(null, "https://example.com/hund.jpg");
+        });
+        assertEquals("Das Wort darf nicht null oder leer sein.", exception.getMessage());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testKonstruktorMitUngueltigerUrl() {
-        new WortEintrag("Hund", "ungültige_url");
+    @Test
+    void testKonstruktorMitUngueltigerUrl() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new WortEintrag("Hund", "ungültige_url");
+        });
+        assertEquals("Die Bild-URL ist ungültig.", exception.getMessage());
     }
 }

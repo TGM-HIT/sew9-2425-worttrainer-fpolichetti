@@ -31,4 +31,16 @@ class WortTrainer {
   +void setAuswahl(WortEintrag eintrag)
 }
 
+class Statistik {
+  -richtigeVersuche : int
+  -falscheVersuche : int
+  --
+  +Statistik()
+  +Statistik(int richtigeVersuche, int falscheVersuche)
+  +int getRichtigeVersuche()
+  +int getFalscheVersuche()
+  +void aktualisiere(boolean korrekt)
+  +String getStatistik()
+}
+
 @enduml

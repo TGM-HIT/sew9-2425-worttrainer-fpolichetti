@@ -66,8 +66,9 @@ class Controller {
   +void starte()
 }
 
-Controller --> WortTrainer
-Controller --> View
-WortTrainer o--> WortEintrag
-WortTrainer --> Statistik
+Controller "1" --> "1" WortTrainer
+Controller "1" --> "1" View
+WortTrainer "1" o-- "*" WortEintrag
+WortTrainer "1" --> "1" Statistik
+
 @enduml

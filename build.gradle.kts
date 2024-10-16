@@ -1,8 +1,9 @@
 plugins {
     id("java")
+    id("application")
 }
 
-group = "com.example"
+group = "fpolichetti"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -13,3 +14,8 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
     testImplementation("junit:junit:4.13.2")
 }
+
+tasks.test {
+    useJUnit()
+}
+

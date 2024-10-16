@@ -51,4 +51,15 @@ class View {
 }
 
 
+class Controller {
+  -wortTrainer : WortTrainer
+  -view : View
+  --
+  +Controller(WortTrainer wortTrainer, View view)
+  +void starte()
+}
+Controller --> WortTrainer
+Controller --> View
+
+
 @enduml

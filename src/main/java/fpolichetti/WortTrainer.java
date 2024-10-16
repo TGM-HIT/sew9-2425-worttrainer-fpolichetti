@@ -10,6 +10,8 @@ import java.util.Random;
 public class WortTrainer {
     private List<WortEintrag> eintraege;
     private WortEintrag auswahl;
+    private Statistik statistik;
+    private String pfad;
 
     /**
      * Konstruktor für WortTrainer.
@@ -17,6 +19,17 @@ public class WortTrainer {
     public WortTrainer() {
         eintraege = new ArrayList<>();
         auswahl = null;
+        statistik = new Statistik();
+        pfad = "worttrainer.json";
+    }
+
+    /**
+     * Gibt die Statistik zurück.
+     *
+     * @return Die Statistik.
+     */
+    public Statistik getStatistik() {
+        return statistik;
     }
 
     /**

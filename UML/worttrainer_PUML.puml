@@ -68,6 +68,6 @@ class Controller {
 
 Controller --> WortTrainer
 Controller --> View
-WortTrainer --> WortEintrag
+WortTrainer o--> WortEintrag
 WortTrainer --> Statistik
 @enduml

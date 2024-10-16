@@ -19,7 +19,8 @@ public class Controller {
      * Startet die Anwendung.
      */
     public void starte() {
-        wortTrainer.ladeDaten();
+        // Die Ladefunktion wurde bereits in Main aufgerufen
+        // wortTrainer.ladeDaten();
 
         while (true) {
             WortEintrag aktuellerEintrag = wortTrainer.waehleZufaelligenEintrag();
@@ -45,8 +46,7 @@ public class Controller {
                 break;
             }
 
-            boolean korrekt = aktuellerEintrag.getWort().equalsIgnoreCase(eingabe.trim());
-            wortTrainer.getStatistik().aktualisiere(korrekt);
+            boolean korrekt = wortTrainer.rateWort(eingabe);
 
             if (korrekt) {
                 view.zeigeNachricht("Richtig!");

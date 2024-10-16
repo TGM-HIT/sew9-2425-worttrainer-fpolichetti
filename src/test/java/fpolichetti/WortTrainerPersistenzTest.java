@@ -30,17 +30,4 @@ public class WortTrainerPersistenzTest {
             file.delete();
         }
     }
-
-    @Test
-    public void testLoeschePersistenz() {
-        WortTrainer trainer = new WortTrainer();
-        trainer.setPfad("test_worttrainer.json");
-
-        trainer.speichereDaten();
-        File file = new File("test_worttrainer.json");
-        assertTrue(file.exists());
-
-        trainer.loeschePersistenz();
-        assertFalse(file.exists());
-    }
 }

@@ -1,15 +1,18 @@
 package fpolichetti;
 
+import com.google.gson.Gson;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import com.google.gson.Gson;
 
 /**
- * Die Klasse WortTrainer verwaltet die Liste der Worteinträge und die aktuelle Auswahl.
+ * Die Klasse WortTrainer verwaltet die WortEintraege und die Statistik.
  */
 public class WortTrainer {
     private List<WortEintrag> eintraege;
@@ -21,76 +24,46 @@ public class WortTrainer {
      * Konstruktor für WortTrainer.
      */
     public WortTrainer() {
-        eintraege = new ArrayList<>();
-        auswahl = null;
-        statistik = new Statistik();
-        pfad = "worttrainer.json";
+        this.eintraege = new ArrayList<>();
+        this.statistik = new Statistik();
+        this.pfad = "worttrainer.json";
     }
 
-    /**
-     * Gibt die Statistik zurück.
-     *
-     * @return Die Statistik.
-     */
-    public Statistik getStatistik() {
-        return statistik;
-    }
-
-    /**
-     * Gibt die Liste der Worteinträge zurück.
-     *
-     * @return Die Liste der Worteinträge.
-     */
     public List<WortEintrag> getEintraege() {
-        return new ArrayList<>(eintraege);
+        return eintraege;
     }
 
-    /**
-     * Setzt die Liste der Worteinträge.
-     *
-     * @param eintraege Die neue Liste der Worteinträge.
-     */
     public void setEintraege(List<WortEintrag> eintraege) {
         if (eintraege == null) {
             throw new IllegalArgumentException("Die Liste der Worteinträge darf nicht null sein.");
         }
-        this.eintraege = new ArrayList<>(eintraege);
+        this.eintraege = eintraege;
     }
 
-    /**
-     * Wählt einen zufälligen Worteintrag aus.
-     *
-     * @return Der zufällig ausgewählte Worteintrag.
-     */
-    public WortEintrag waehleZufaelligenEintrag() {
-        if (eintraege.isEmpty()) {
-            auswahl = null;
-            return null;
-        }
-        Random rand = new Random();
-        int index = rand.nextInt(eintraege.size());
-        auswahl = eintraege.get(index);
+    public WortEintrag getAuswahl() {
         return auswahl;
     }
 
-    /**
-     * Wählt einen spezifischen Worteintrag anhand des Index aus.
-     *
-     * @param index Der Index des Worteintrags.
-     * @return Der ausgewählte Worteintrag.
-     */
-    public WortEintrag waehleEintrag(int index) {
-        if (index < 0 || index >= eintraege.size()) {
-            throw new IndexOutOfBoundsException("Ungültiger Index.");
-        }
-        auswahl = eintraege.get(index);
-        return auswahl;
+    public void setAuswahl(WortEintrag auswahl) {
+        this.auswahl = auswahl;
+    }
+
+    public Statistik getStatistik() {
+        return statistik;
+    }
+
+    public void setPfad(String pfad) {
+        this.pfad = pfad;
+    }
+
+    public String getPfad() {
+        return pfad;
     }
 
     /**
-     * Fügt einen Worteintrag zur Liste hinzu.
+     * Fügt einen neuen WortEintrag hinzu.
      *
-     * @param eintrag Der hinzuzufügende Worteintrag.
+     * @param eintrag Der hinzuzufügende WortEintrag.
      */
     public void addEintrag(WortEintrag eintrag) {
         if (eintrag == null) {
@@ -100,84 +73,80 @@ public class WortTrainer {
     }
 
     /**
-     * Entfernt einen Worteintrag aus der Liste.
+     * Entfernt einen vorhandenen WortEintrag.
      *
-     * @param eintrag Der zu entfernende Worteintrag.
+     * @param eintrag Der zu entfernende WortEintrag.
      */
     public void removeEintrag(WortEintrag eintrag) {
         eintraege.remove(eintrag);
     }
 
     /**
-     * Gibt den aktuell ausgewählten Worteintrag zurück.
+     * Wählt zufällig einen WortEintrag aus.
      *
-     * @return Der aktuell ausgewählte Worteintrag.
+     * @return Der ausgewählte WortEintrag oder null, wenn keine Einträge vorhanden sind.
      */
-    public WortEintrag getAuswahl() {
+    public WortEintrag waehleZufaelligenEintrag() {
+        if (eintraege.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        int index = random.nextInt(eintraege.size());
+        auswahl = eintraege.get(index);
         return auswahl;
-    }
-
-    /**
-     * Setzt den aktuell ausgewählten Worteintrag.
-     *
-     * @param eintrag Der auszuwählende Worteintrag.
-     */
-    public void setAuswahl(WortEintrag eintrag) {
-        this.auswahl = eintrag;
-    }
-
-    /**
-     * Setzt den Pfad für die Persistenzdatei.
-     *
-     * @param pfad Der Dateipfad.
-     */
-    public void setPfad(String pfad) {
-        this.pfad = pfad;
-    }
-
-    /**
-     * Gibt den Pfad der Persistenzdatei zurück.
-     *
-     * @return Der Dateipfad.
-     */
-    public String getPfad() {
-        return pfad;
     }
 
     /**
      * Speichert die Daten in eine JSON-Datei.
      */
     public void speichereDaten() {
+        Gson gson = new Gson();
         try (FileWriter writer = new FileWriter(pfad)) {
-            Gson gson = new Gson();
             gson.toJson(this, writer);
+            System.out.println("Daten erfolgreich gespeichert.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Lädt die Daten aus einer JSON-Datei.
-     */
     public void ladeDaten() {
-        try (FileReader reader = new FileReader(pfad)) {
-            Gson gson = new Gson();
+        Gson gson = new Gson();
+        try (Reader reader = new FileReader(pfad)) {
             WortTrainer geladen = gson.fromJson(reader, WortTrainer.class);
-            this.eintraege = geladen.eintraege;
-            this.statistik = geladen.statistik;
-            this.auswahl = geladen.auswahl;
+            if (geladen != null) {
+                this.eintraege = geladen.eintraege != null ? geladen.eintraege : new ArrayList<>();
+                this.statistik = geladen.statistik != null ? geladen.statistik : new Statistik();
+            } else {
+                this.eintraege = new ArrayList<>();
+                this.statistik = new Statistik();
+            }
+            System.out.println("Daten erfolgreich geladen.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Keine vorhandenen Daten gefunden. Neue Daten werden erstellt.");
+            this.eintraege = new ArrayList<>();
+            this.statistik = new Statistik();
+        } catch (com.google.gson.JsonSyntaxException e) {
+            System.out.println("Die Daten konnten nicht geladen werden (ungültiges Format). Neue Daten werden erstellt.");
+            this.eintraege = new ArrayList<>();
+            this.statistik = new Statistik();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
     /**
-     * Löscht die Persistenzdatei.
+     * Bewertet die Benutzereingabe und aktualisiert die Statistik.
+     *
+     * @param eingabe Die vom Benutzer eingegebene Antwort.
+     * @return True, wenn die Eingabe korrekt ist; sonst false.
      */
-    public void loeschePersistenz() {
-        java.io.File file = new java.io.File(pfad);
-        if (file.exists()) {
-            file.delete();
+    public boolean rateWort(String eingabe) {
+        if (auswahl == null) {
+            throw new IllegalStateException("Kein Wort-Eintrag ausgewählt.");
         }
+        boolean korrekt = auswahl.getWort().equalsIgnoreCase(eingabe.trim());
+        statistik.aktualisiere(korrekt);
+        return korrekt;
     }
 }

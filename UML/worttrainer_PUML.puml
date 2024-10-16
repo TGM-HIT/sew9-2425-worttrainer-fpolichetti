@@ -19,6 +19,8 @@ class WortEintrag {
 class WortTrainer {
   -eintraege : List<WortEintrag>
   -auswahl : WortEintrag
+  -statistik : Statistik
+  -pfad : String
   --
   +WortTrainer()
   +List<WortEintrag> getEintraege()
@@ -29,6 +31,12 @@ class WortTrainer {
   +void removeEintrag(WortEintrag eintrag)
   +WortEintrag getAuswahl()
   +void setAuswahl(WortEintrag eintrag)
+  +Statistik getStatistik()
+  +void setPfad(String pfad)
+  +String getPfad()
+  +void speichereDaten()
+  +void ladeDaten()
+  +void loeschePersistenz()
 }
 
 class Statistik {
@@ -46,10 +54,9 @@ class Statistik {
 class View {
   --
   +void zeigeNachricht(String nachricht)
-  +void zeigeBild(String nachricht, ImageIcon icon)
   +String holeBenutzereingabe(String nachricht, ImageIcon icon)
+  +void zeigeBild(String nachricht, ImageIcon icon)
 }
-
 
 class Controller {
   -wortTrainer : WortTrainer
@@ -58,8 +65,9 @@ class Controller {
   +Controller(WortTrainer wortTrainer, View view)
   +void starte()
 }
+
 Controller --> WortTrainer
 Controller --> View
-
-
+WortTrainer --> WortEintrag
+WortTrainer --> Statistik
 @enduml

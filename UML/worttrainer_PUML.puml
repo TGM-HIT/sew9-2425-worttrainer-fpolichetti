@@ -43,4 +43,9 @@ class Statistik {
   +String getStatistik()
 }
 
+class View {
+  --
+  +void zeigeNachricht(String nachricht)
+}
+
 @enduml

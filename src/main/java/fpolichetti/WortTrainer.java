@@ -3,6 +3,10 @@ package fpolichetti;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import com.google.gson.Gson;
 
 /**
  * Die Klasse WortTrainer verwaltet die Liste der Worteinträge und die aktuelle Auswahl.
@@ -120,5 +124,60 @@ public class WortTrainer {
      */
     public void setAuswahl(WortEintrag eintrag) {
         this.auswahl = eintrag;
+    }
+
+    /**
+     * Setzt den Pfad für die Persistenzdatei.
+     *
+     * @param pfad Der Dateipfad.
+     */
+    public void setPfad(String pfad) {
+        this.pfad = pfad;
+    }
+
+    /**
+     * Gibt den Pfad der Persistenzdatei zurück.
+     *
+     * @return Der Dateipfad.
+     */
+    public String getPfad() {
+        return pfad;
+    }
+
+    /**
+     * Speichert die Daten in eine JSON-Datei.
+     */
+    public void speichereDaten() {
+        try (FileWriter writer = new FileWriter(pfad)) {
+            Gson gson = new Gson();
+            gson.toJson(this, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Lädt die Daten aus einer JSON-Datei.
+     */
+    public void ladeDaten() {
+        try (FileReader reader = new FileReader(pfad)) {
+            Gson gson = new Gson();
+            WortTrainer geladen = gson.fromJson(reader, WortTrainer.class);
+            this.eintraege = geladen.eintraege;
+            this.statistik = geladen.statistik;
+            this.auswahl = geladen.auswahl;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Löscht die Persistenzdatei.
+     */
+    public void loeschePersistenz() {
+        java.io.File file = new java.io.File(pfad);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 }
